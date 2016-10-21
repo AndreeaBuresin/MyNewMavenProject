@@ -1,0 +1,36 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+
+<persistence-unit name="msg_cv" transaction-type="RESOURCE_LOCAL">
+    <!-- specifies the used JPA implementation -->
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <!-- the list of managed entities -->
+
+    <class>com.myCVpackage.data.model.CVUser</class>
+    <class>com.myCVpackage.data.model.User</class>
+
+
+    <properties>
+        <!-- database properties -->
+        <property name="javax.persistence.database-product-name"    value="MySQL"/>
+        <property name="javax.persistence.database-major-version"   value="5.7"/>
+        <property name="javax.persistence.database-minor-version"   value="15"/>
+
+        <!-- DDL related config properties - http://wiki.eclipse.org/EclipseLink/Release/2.5/JPA21#DDL_generation -->
+        <property name="javax.persistence.schema-generation.database.action"        value="none"/> <!-- none, create, drop-and-create, drop -->
+
+        <property name="javax.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
+        <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost/msg_cv?useSSL=false&amp;serverTimezone=EST"/>
+        <property name="javax.persistence.jdbc.user"     value="root"/>
+        <property name="javax.persistence.jdbc.password" value="mysql"/>
+
+        <!-- Hibernate properties -->
+        <property name="hibernate.dialect"      value="org.hibernate.dialect.MySQL57InnoDBDialect"/>
+        <property name="hibernate.hbm2ddl.auto" value="none"/>
+        <property name="hibernate.show_sql"     value="false"/> <!-- to be set to true for displaying the SQL queries -->
+        <property name="hibernate.format_sql"   value="true"/>
+    </properties>
+</persistence-unit>
+</persistence>
