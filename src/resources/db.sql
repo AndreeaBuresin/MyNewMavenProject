@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `msg_cv`.`user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
-  `dateOfBirth` VARCHAR(45) NOT NULL,
-  `cnp` VARCHAR(45) NOT NULL,
+  `dateOfBirth` DATE NOT NULL,
+  `cnp` INT(13) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `cnp_UNIQUE` (`cnp` ASC))
 ENGINE = InnoDB

@@ -12,9 +12,15 @@ public class CVUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "cvTitle")
     String cvTitle;
+    @Column(name = "cvContent")
     String cvContent;
+
+    @JoinColumn(foreignKey = @ForeignKey(name = "user.id"))
     int userId;
 
     public String getCvTitle() {

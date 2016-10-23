@@ -1,19 +1,24 @@
 package com.myCVpackage.data.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "firstName")
     String firstName;
+    @Column(name = "lastName")
     String lastName;
-    int cnp;
-    Date dateOfBirth;
+    @Column(name = "cnp", unique = true, length = 13)
+    long cnp;
+    @Column(name = "dateOfBirth")
+    LocalDate dateOfBirth;
 
     public String getFirstName() {
         return firstName;
@@ -31,19 +36,19 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getCnp() {
+    public long getCnp() {
         return cnp;
     }
 
-    public void setCnp(int cnp) {
+    public void setCnp(long cnp) {
         this.cnp = cnp;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -54,6 +59,7 @@ public class User {
 
         User user = (User) o;
 
+        if (id != user.id) return false;
         if (cnp != user.cnp) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
@@ -63,9 +69,10 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + cnp;
+        result = 31 * result + (int) (cnp ^ (cnp >>> 32));
         result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
         return result;
     }
@@ -73,7 +80,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", cnp=" + cnp +
                 ", dateOfBirth=" + dateOfBirth +
