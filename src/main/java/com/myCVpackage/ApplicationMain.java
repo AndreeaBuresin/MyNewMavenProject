@@ -77,15 +77,15 @@ public class ApplicationMain {
     private void cvDetails() throws Exception {
         Scanner scan=new Scanner(System.in);
         System.out.println("Please introduce your criteria!");
-        System.out.println("\n Nume /Data Nasterii /Localitate /Firma /Pozitie");
+        System.out.println("\n Name /Birth Date /City /Company /Position");
         String criteria=scan.next();
         if(Validation.nameValidation(criteria)){
             ArrayList<String> criteriaList=new ArrayList<String>();
-            criteriaList.add("Nume");
-            criteriaList.add("Data Nasterii");
-            criteriaList.add("Localitate");
-            criteriaList.add("Firma");
-            criteriaList.add("Pozitie");
+            criteriaList.add("Name");
+            criteriaList.add("Birth Date");
+            criteriaList.add("City");
+            criteriaList.add("Company");
+            criteriaList.add("Position");
             if(criteriaList.contains(criteria)==true){
                 System.out.println("Please introduce "+criteria+" !");
                 String searchValue=scan.next();
@@ -100,10 +100,11 @@ public class ApplicationMain {
                 }
             }
             else{
-                // criteriul introdus nu exista
+                System.out.println("Your criteria doesn't exist!");
             }
         }
         else{
+            System.out.println("Please enter again, this is not a valid word!");
 
         }
 
@@ -134,31 +135,14 @@ public class ApplicationMain {
                     cvUserController.save(cv);
                 }
             }else {
-                // nu gasesc utilizator corespunzator id-ului
+                System.out.println("Your user doesn't match any id!");
             }
 
         }
         else{
-                // idul nu e numar
+            System.out.println("This is not a valid number!");
             }
     }
-
-
-//        CVUser cvUser = new CVUser();
-//
-//        do {
-//            String cvTitle = read("Enter the CV title: ");
-//                cvUser.setCvTitle(cvTitle);
-//        } while (cvTitle != 0);
-//
-//        do {
-//            String cvContent = read("Enter the CV content: ");
-//               cvUser.setCvContent(cvContent);
-//        } while (cvContent != 0);
-//
-//
-//        userController.save(CVUser;
-
 
     private void createUser() throws Exception {
 
