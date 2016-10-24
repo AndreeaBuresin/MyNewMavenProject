@@ -5,8 +5,11 @@ import com.myCVpackage.Controller.IController;
 import com.myCVpackage.data.Repository.GenericRepository;
 import com.myCVpackage.data.model.CVUser;
 import com.myCVpackage.data.model.User;
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.xml.crypto.Data;
@@ -94,8 +97,10 @@ public class ApplicationMain {
                     CVUser cvUser=listaCV.get(i);
                     String cvtext=cvUser.getCvContent();
                     if(cvtext.contains(searchValue)==true){
+                        int userId = cvUser.getUserId();
+                       User user = (User) userController.findById(userId);
                         System.out.println("UserID="+cvUser.getUserId()+" CVTitle="+ cvUser.getCvTitle()
-                        +"\n CVContent: \n"+cvUser.getCvContent());
+                        + "\nUser name:" + user.getFirstName() +user.getLastName() + "\nUser cnp: "+user.getCnp());
                     }
                 }
             }
@@ -105,9 +110,7 @@ public class ApplicationMain {
         }
         else{
             System.out.println("Please enter again, this is not a valid word!");
-
         }
-
     }
 
     private void createCV() throws Exception {
@@ -120,7 +123,10 @@ public class ApplicationMain {
             User user = userController.findById(userID);
             if(user != null) {
 
-                String fileName = "C:\\Users\\andreea\\Desktop\\CV"+user.getFirstName()+user.getLastName()+".txt";
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Insert the file name: ");
+                String fileName = scanner.next();
+                fileName = "C:\\Users\\andreea\\Desktop\\"+fileName;
                 File fisier = new File(fileName);
                 if(fisier!=null) {
                     Scanner scanFile = new Scanner(fisier);
